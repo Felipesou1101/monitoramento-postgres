@@ -13,7 +13,7 @@ services:
     ports:
       - ${PROMETHEUS_PORT}:${PROMETHEUS_PORT_DOCKER}
     networks:
-      - prometheus
+      - monitoramento
     restart: unless-stopped
 
   grafana:
@@ -27,7 +27,7 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
     networks:
-      - prometheus
+      - monitoramento
 #    env_file:
 #      - ./grafana/config.monitoring
     restart: unless-stopped
@@ -48,4 +48,4 @@ volumes:
     grafana_data: {}
 
 networks:
-    prometheus:
+    monitoramento:
