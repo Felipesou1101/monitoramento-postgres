@@ -1,0 +1,40 @@
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./config/prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    container_name: prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml' 
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - ${PROMETHEUS_PORT}:${PROMETHEUS_PORT_DOCKER}
+    networks:
+      - prometheus
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+    ports:
+      - ${GRAFANA_PORT}:${GRAFANA_PORT_DOCKER}
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - prometheus
+#    env_file:
+#      - ./grafana/config.monitoring
+    restart: unless-stopped
+
+volumes:
+    prometheus_data: {}
+    grafana_data: {}
+
+networks:
+    prometheus:
