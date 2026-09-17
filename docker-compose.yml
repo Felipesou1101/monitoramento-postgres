@@ -32,31 +32,16 @@ services:
 #      - ./grafana/config.monitoring
     restart: unless-stopped
 
-  postgres:
-    image: postgres:9.5
-    container_name: postgres
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-    ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}
-    networks:
-      - monitoramento
-    restart: unless-stopped
-
   postgres-exporter:
     image: prometheuscommunity/postgres-exporter
     container_name: postgres-exporter
     environment:
       # URL de conexão com o banco de dados configurado acima
-    DATA_SOURCE_NAME: "postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@postgres:5432/{POSTGRES_DB}?sslmode=disable"
+    DATA_SOURCE_NAME: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable"
     ports:
       - "9187:9187"
     networks:
       - monitoramento
-    depends_on:
-      - postgres
 
 volumes:
     prometheus_data: {}
