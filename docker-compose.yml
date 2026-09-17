@@ -32,6 +32,19 @@ services:
 #      - ./grafana/config.monitoring
     restart: unless-stopped
 
+    postgres:
+      image: postgres:9.5
+      container_name: postgres
+      environment:
+        - POSTGRES_USER=${POSTGRES_USER}
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+        - POSTGRES_DB=${POSTGRES_DB}
+      ports:
+        - ${POSTGRES_PORT}:${POSTGRES_PORT_DOCKER}
+      networks:
+        - monitoramento
+      restart: unless-stopped
+
     postgres-exporter:
       image: prometheuscommunity/postgres-exporter
       container_name: postgres-exporter
