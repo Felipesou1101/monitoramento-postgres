@@ -5,8 +5,8 @@ global:
 scrape_configs:
     - job_name: 'prometheus'
       static_configs:
-        - targets: [prometheus:9090] 
+        - targets: [${HOST}:9090] 
 
     - job_name: 'postgres'
       static_configs:
-        - targets: [postgres-exporter:9187] 
+        - targets: [${HOST}:9187] 

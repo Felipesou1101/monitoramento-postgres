@@ -35,7 +35,7 @@ services:
     container_name: postgres-exporter
     environment:
       # URL de conexão com o banco de dados configurado acima
-      DATA_SOURCE_NAME: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/${POSTGRES_DB}?sslmode=disable"
+      DATA_SOURCE_NAME: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${HOST}:5432/${POSTGRES_DB}?sslmode=disable"
     ports:
       - "9187:9187"
     networks:
