@@ -9,8 +9,8 @@ scrape_configs:
 
     - job_name: 'postgres_linux'
       static_configs:
-        - targets: [10.90.111.111:9187] 
+        - targets: ['postgres-exporter-Linux:9187'] 
 
     - job_name: 'postgres_windows'
       static_configs:
-        - targets: [10.90.111.108:9188] 
+        - targets: ['postgres-exporter-Windows:9188'] 

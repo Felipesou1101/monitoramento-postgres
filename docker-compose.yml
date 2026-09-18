@@ -42,14 +42,14 @@ services:
       - monitoramento
     restart: unless-stopped
 
-  postgres-exporter:
+  postgres-exporter-w:
     image: prometheuscommunity/postgres-exporter
     container_name: postgres-exporter-Windows
     environment:
       # URL de conexão com o banco de dados configurado acima
       DATA_SOURCE_NAME: "postgresql://${POSTGRES_USER_WINDOWS}:${POSTGRES_PASSWORD_WINDOWS}@${HOST_WINDOWS}:5432/${POSTGRES_DB_WINDOWS}?sslmode=disable"
     ports:
-      - "9188:9188"
+      - "9188:9187"
     networks:
       - monitoramento
     restart: unless-stopped
