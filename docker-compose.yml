@@ -32,12 +32,24 @@ services:
 
   postgres-exporter:
     image: prometheuscommunity/postgres-exporter
-    container_name: postgres-exporter
+    container_name: postgres-exporter-Linux
     environment:
       # URL de conexão com o banco de dados configurado acima
-      DATA_SOURCE_NAME: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${HOST}:5432/${POSTGRES_DB}?sslmode=disable"
+      DATA_SOURCE_NAME: "postgresql://${POSTGRES_USER_LINUX}:${POSTGRES_PASSWORD_LINUX}@${HOST_LINUX}:5432/${POSTGRES_DB_LINUX}?sslmode=disable"
     ports:
       - "9187:9187"
+    networks:
+      - monitoramento
+    restart: unless-stopped
+
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter
+    container_name: postgres-exporter-Windows
+    environment:
+      # URL de conexão com o banco de dados configurado acima
+      DATA_SOURCE_NAME: "postgresql://${POSTGRES_USER_WINDOWS}:${POSTGRES_PASSWORD_WINDOWS}@${HOST_WINDOWS}:5432/${POSTGRES_DB_WINDOWS}?sslmode=disable"
+    ports:
+      - "9188:9188"
     networks:
       - monitoramento
     restart: unless-stopped
